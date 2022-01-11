@@ -1,0 +1,13 @@
+23.09.2021 - daytime, write first function, IF (subscription.fname != user.name) for mognodb,
+23.09.2021 - evening, firt test: doubtful, error buffer to small, and syntax error in request for finish
+24.09.2021 - 12:05, work on offset update command
+24.09.2021 - 14:50, second test: good, but have some moments, field "fname" may not exist
+24.09.2021 - 15:30, third test: good
+24.09.2021 - 16:30, work on displaying the log(output success operiation how ".")
+24.09.2021 - 20:22, creating a test report
+24.09.2021 - 20:34, finish
+25.09.2021 - 10:58, multi-start protection
+25.09.2021 - 13:24, offset and interval value protection
+25.09.2021 - 22:13, add debug level
+26.09.2021 - 11:10, start work on sampling over time
+26.09.2021 - 18:10, add sampling over time, rewrite libfname.sh
