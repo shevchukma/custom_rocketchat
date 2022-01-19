@@ -44,4 +44,4 @@ setSettings "Accounts_AllowRealNameChange" true &>>/dev/null
 setData | tee -a $logFile
 setSettings "Accounts_AllowRealNameChange" false  &>>/dev/null
 
-exit_with_rmlock
+exit_with_rmlock_success

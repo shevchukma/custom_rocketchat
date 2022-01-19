@@ -19,7 +19,7 @@ exit_with_rmlock_success(){
 exit_without_rmlock(){
 
 	if [ $debug -eq 1 ]; then debug "$FUNCNAME $@" ; fi
-	kill -s TERM $TOP_PID;
+	kill -s KILL $TOP_PID 2>/dev/null
 }
 
 # trap_protector [lockfile]

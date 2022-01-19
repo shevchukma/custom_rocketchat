@@ -3,10 +3,11 @@
 
 rootpath() { cd -- "$( dirname -- "$(readlink -f "$0")")" &> /dev/null && git rev-parse --show-toplevel; }
 declare rootPath="$(rootpath)";
-declare scriptPath="${rootPath}/system/customLDAP/customData";
+declare scriptPath="${rootPath}/system/customLDAP/ldapData";
 if [ -f "${rootPath}/.env" ]; then source "${rootPath}/.env"; fi
 if [ -f "${scriptPath}/.env" ]; then source "${scriptPath}/.env"; fi
 
+include "${scriptPath}/local.sh"
 include "${rootPath}/lib/debug.sh"
 include "${rootPath}/lib/trap.sh"
 include "${rootPath}/lib/rest.sh"
@@ -14,14 +15,11 @@ source "${rootPath}/connections/restAuth/restAuth.sh" "$server"
 
 trap_protector $lockfile
 
-#get data from ldap | merge >"$JSON"
-
-if [ -z "$userId" ]; then
-    echo "$errUserNotFound $userName"; exit 1;
-fi
+if [ $# -ne 1 ]; then echo "${ERR_EXEC}"; exit_with_rmlock; fi
 
 setSettings "Accounts_AllowRealNameChange" true &>>/dev/null
+getData
 setData
 setSettings "Accounts_AllowRealNameChange" false  &>>/dev/null
 
-exit_with_rmlock
+exit_with_rmlock_success
