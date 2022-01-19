@@ -1,23 +1,25 @@
-get_photo() {
+#/bin/bash
+# shellcheck disable=SC1090,2120,2005,2026,1079,212
 
-	lib_info_level $FUNCNAME "$@"
-	if [ -z "$photo" ]; then
-		# AD answer to request, default port 636
+rootpath() { cd -- "$( dirname -- "$(readlink -f "$0")")" &> /dev/null && git rev-parse --show-toplevel; }
+declare rootPath="$(rootpath)";
+declare scriptPath="${rootPath}/system/customLDAP/ldapPhoto";
+if [ -f "${rootPath}/.env" ]; then source "${rootPath}/.env"; fi
+if [ -f "${scriptPath}/.env" ]; then source "${scriptPath}/.env"; fi
 
-		# ldapsearch -x -b "OU=[OU],DC=[DC],DC=[DC]" -H ldap://[ip_srv] -D "[user_ldap]]@[domain]]" -W "(&(objectCategory=Person)(sAMAccountName=[need_user]))" |
-		# $ldap | sed -z 's/\n //g' | awk '/photo/ {print $2}' | base64 -d >"$JPEG"
-		# ldap="/bin/cat ~/$user.txt"
-		# $ldap | sed -z 's/\n //g' | awk '/photo/ {print $2}' | base64 -d >"$JPEG"
-		cp $photo $JPEG
-	else
-		if [[ -f "$photo" ]]; then
-			# may be config base64 file
-			# cat file | sed -z 's/\n //g' | awk '/photo/ {print $2}' | base64 -d >"$photo" > "$JPEG"
-			cat "$photo" > "$JPEG"
-		else
-			echo $NOT_FILE $JPEG;
-			exit_with_rmlock;
-		fi
-	fi
-	correct_photo
-}
+include "${scriptPath}/local.sh"
+include "${rootPath}/lib/debug.sh"
+include "${rootPath}/lib/trap.sh"
+include "${rootPath}/lib/rest.sh"
+source "${rootPath}/connections/restAuth/restAuth.sh" "$server"
+
+trap_protector $lockfile
+
+if [ $# -ne 1 ]; then echo "${ERR_EXEC}"; exit_with_rmlock; fi
+
+getPhoto
+setSettings "Accounts_AllowUserAvatarChange" true &>>/dev/null
+setPhoto
+setSettings "Accounts_AllowUserAvatarChange" false &>>/dev/null
+
+exit_with_rmlock_success

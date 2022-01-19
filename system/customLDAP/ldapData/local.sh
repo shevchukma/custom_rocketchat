@@ -3,6 +3,7 @@
 
 custom_ldapsearch(){
 
+	if [ $debug -eq 1 ]; then debug "$FUNCNAME $@" ; fi
     # AD answer to request, default port 636
 	#ldapsearch -x -b "OU=[OU],DC=[DC],DC=[DC]" -H ldap://[ip_srv] -D "[user_ldap]]@[domain]]" -W "(&(objectCategory=Person)(sAMAccountName=[need_user]))"
 	/bin/cat /home/dbudakov/Downloads/$targetUserName.txt
