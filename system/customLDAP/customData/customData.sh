@@ -21,7 +21,7 @@ if [ $# -eq 0 ]; then errCall; localHelp; exit 1; fi
 if echo "$@" | grep -q -o '\-h'; then localHelp; exit; fi
 
 {
-    while getopts "u:n:m:p:c:t:d:l:" opt; do
+    while getopts "u:n:m:p:c:t:d:l:r:" opt; do
         case "$opt" in
             u) userName="$OPTARG"; userId=$(get_id $userName) ;;
             n) echo '{"userId": "'"$userId"'","data": {"name": "'"$OPTARG"'"}}' ;;
@@ -31,10 +31,11 @@ if echo "$@" | grep -q -o '\-h'; then localHelp; exit; fi
             t) echo '{"userId": "'"$userId"'","data": {"customFields": {"Title": "'"$OPTARG"'"}}}' ;;
             d) echo '{"userId": "'"$userId"'","data": {"customFields": {"Department": "'"$OPTARG"'"}}}' ;;
             l) echo '{"userId": "'"$userId"'","data": {"customFields": {"Link": "'"$OPTARG"'"}}}' ;;
+            r) echo '{"userId": "'"$userId"'","data": {"roles": ["'"$OPTARG"'"]}}' ;;
             *) echo '{"userId": "'"$userId"'"}';;
         esac
     done
-} |  merge >"$json"
+} | merge >"$json"
 
 if [ -z "$userId" ]; then
     echo "$errUserNotFound $userName"; exit 1;
