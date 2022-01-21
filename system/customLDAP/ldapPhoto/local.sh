@@ -34,4 +34,5 @@ setPhoto(){
 	else
 		echo $result | jq .success
 	fi
+  rm -f "${JPEG}"
 }

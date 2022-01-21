@@ -50,6 +50,7 @@ getData() {
                 "Department": "'$department'",
                 "Link": "'$link'"
         }}}' >${JSON}
+        rm -f "${tempFile}"
 }
 
 setData(){
