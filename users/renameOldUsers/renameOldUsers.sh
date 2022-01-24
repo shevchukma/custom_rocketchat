@@ -66,6 +66,7 @@ if [ "$resutlRenameUser" != "null" ]; then
                 if [ $USER == "rocketchat_service" ]; then echo -e ${errUpdateForService}; else echo "[err]: not set mongodb"; fi
         fi
         echo "" >> $logFile
+        bash ${rootPath}/system/customLDAP/customPhoto/customPhoto.sh $toName $Photo
 else
         if [ $USER == "rocketchat_service" ]; then echo -e ${errUpdateForService}; else echo "[err]: not rename"; fi
 fi
