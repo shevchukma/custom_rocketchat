@@ -10,7 +10,7 @@ declare rootPath="$(rootpath)";
 declare scriptPath="${rootPath}/users/renameOldUsers";
 if [ -f "${rootPath}/.env" ]; then source "${rootPath}/.env"; fi
 if [ -f "${scriptPath}/.env" ]; then source "${scriptPath}/.env"; fi
-Photo="${scriptPath}/template/icon.jpg"
+
 # get lib
 include "${rootPath}/lib/debug.sh";
 include "${rootPath}/lib/trap.sh";
@@ -66,7 +66,7 @@ if [ "$resutlRenameUser" != "null" ]; then
                 if [ $USER == "rocketchat_service" ]; then echo -e ${errUpdateForService}; else echo "[err]: not set mongodb"; fi
         fi
         echo "" >> $logFile
-        bash ${rootPath}/system/customLDAP/customPhoto/customPhoto.sh $toName $Photo
+        bash ${rootPath}/system/customLDAP/customPhoto/customPhoto.sh $toName $Photo &>>/dev/null
 else
         if [ $USER == "rocketchat_service" ]; then echo -e ${errUpdateForService}; else echo "[err]: not rename"; fi
 fi
