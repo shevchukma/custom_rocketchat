@@ -16,6 +16,7 @@ include "${rootPath}/lib/debug.sh";
 include "${rootPath}/lib/trap.sh";
 include "${rootPath}/lib/mongo.sh";
 include "${rootPath}/lib/date.sh";
+include "${rootPath}/connections/mongoConnect/mongoConnect.sh";
 
 
 trap_protector $lockfile
