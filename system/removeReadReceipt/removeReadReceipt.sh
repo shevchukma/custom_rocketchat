@@ -23,7 +23,7 @@ trap_protector $lockfile
 # declare mongoDates=($(date_get_mongo_ignore ${dates[@]}))
 declare mongoDates=($(date_get_mongo_ignore $(date --date "-$long days"  +%d.%m.%Y)))
 declare query='{"ts": {$lt: ISODate("'${mongoDates[1]}'")}}'
-declare command='db.rocketchat_message_read_receipt.remove('$query')'
+declare command='db.rocketchat_read_receipts.remove('$query')'
 mongoCommand master command
 
 exit_with_rmlock
