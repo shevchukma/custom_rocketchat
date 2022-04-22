@@ -7,7 +7,7 @@ Get num message user in chats for yesterday, for date, for range date
 ## Steps
 
 ```sh
-git clone https://github.com/budakovda/custom_rocketchat
+git clone https://github.com/shevchukma/custom_rocketchat
 cd custom_rocketchat/rocketchat/users/scan.active/
 echo 'connect1="mongo rocketchat --host 192.168.100.105"' >connect.sh
 echo 'connect2="mongo rocketchat --host 192.168.100.105 --port 27018"'>>connect.sh
